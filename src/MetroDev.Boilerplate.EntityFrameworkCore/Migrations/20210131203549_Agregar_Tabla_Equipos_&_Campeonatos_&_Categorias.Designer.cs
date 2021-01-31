@@ -4,14 +4,16 @@ using MetroDev.Boilerplate.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace MetroDev.Boilerplate.Migrations
 {
     [DbContext(typeof(BoilerplateDbContext))]
-    partial class BoilerplateDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210131203549_Agregar_Tabla_Equipos_&_Campeonatos_&_Categorias")]
+    partial class Agregar_Tabla_Equipos__Campeonatos__Categorias
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
