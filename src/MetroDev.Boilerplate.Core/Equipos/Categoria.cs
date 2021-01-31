@@ -20,7 +20,7 @@ namespace MetroDev.Boilerplate.Equipos {
 
         [Required]
         [MaxLength(maxLength)]
-        public virtual int Nombre { get; set; }
+        public virtual string Nombre { get; set; }
 
         public virtual ICollection<Equipo> Equipos { get; set; }
     }
