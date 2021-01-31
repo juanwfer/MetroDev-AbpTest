@@ -13,9 +13,9 @@ namespace MetroDev.Boilerplate.EntityFrameworkCore
         
         public virtual DbSet<Equipo> Equipos { get; set; }
 
-        public virtual DbSet<Equipo> Campeonatos { get; set; }
+        public virtual DbSet<Campeonato> Campeonatos { get; set; }
 
-        public virtual DbSet<Equipo> Categorias { get; set; }
+        public virtual DbSet<Categoria> Categorias { get; set; }
 
         public BoilerplateDbContext(DbContextOptions<BoilerplateDbContext> options)
             : base(options)
