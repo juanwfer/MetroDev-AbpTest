@@ -13,27 +13,41 @@ namespace MetroDev.Boilerplate.EntityFrameworkCore.Seed.Host {
             _context = context;
         }
 
+        private Categoria AgregarCategoriaSiFalta(Categoria categoria, int numero, string nombre) {
+            if (categoria == null) {
+                categoria = new Categoria() {
+                    Nombre = nombre,
+                    Numero = numero
+                };
+
+                _context.Categorias.Add(categoria);
+            }
+
+            return categoria;
+        }
+
         public void Create() {
             Categoria primera = _context.Categorias.FirstOrDefault(c => c.Numero == 1);
             Categoria primeraNacional = _context.Categorias.FirstOrDefault(c => c.Numero == 2);
 
-            if (primera == null) {
-                primera = new Categoria() {
-                    Nombre = "Primera",
-                    Numero = 1
-                };
+            Categoria primeraB = _context.Categorias.FirstOrDefault(c => c.Numero == 3 && c.Nombre == "Primera B");
+            Categoria primeraC = _context.Categorias.FirstOrDefault(c => c.Numero == 4 && c.Nombre == "Primera C");
+            Categoria primeraD = _context.Categorias.FirstOrDefault(c => c.Numero == 5 && c.Nombre == "Primera D");
 
-                _context.Categorias.Add(primera);
-            }
+            Categoria torneoFederalA = _context.Categorias.FirstOrDefault(c => c.Numero == 3 && c.Nombre == "Torneo Feredal A");
+            Categoria torneoFederalRegionalAmateur = _context.Categorias.FirstOrDefault(c => c.Numero == 4 && c.Nombre == "Torneo Federal Regional Amateur");
+            Categoria ligasRegionales = _context.Categorias.FirstOrDefault(c => c.Numero == 5 && c.Nombre == "Ligas Nacionales");
 
-            if (primeraNacional == null) {
-                primeraNacional = new Categoria() {
-                    Nombre = "Primera Nacional",
-                    Numero = 2
-                };
+            primera = AgregarCategoriaSiFalta(primera, 1, "Primera");
+            primeraNacional = AgregarCategoriaSiFalta(primeraNacional, 2, "Primera Nacional");
 
-                _context.Categorias.Add(primeraNacional);
-            }
+            primeraB = AgregarCategoriaSiFalta(primeraB, 3, "Primera B");
+            primeraC = AgregarCategoriaSiFalta(primeraC, 4, "Primera C");
+            primeraD = AgregarCategoriaSiFalta(primeraD, 5, "Primera D");
+
+            torneoFederalA = AgregarCategoriaSiFalta(torneoFederalA, 3, "Torneo Federal A");
+            torneoFederalRegionalAmateur = AgregarCategoriaSiFalta(torneoFederalRegionalAmateur, 4, "Torneo Federal Regional Amateur");
+            ligasRegionales = AgregarCategoriaSiFalta(ligasRegionales, 5, "Ligas Regionales");
 
             var boca = _context.Equipos.FirstOrDefault(e => e.Nombre == "Boca Juniors");
             var river = _context.Equipos.FirstOrDefault(e => e.Nombre == "River Plate");
