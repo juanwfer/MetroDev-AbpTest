@@ -9,9 +9,16 @@ using System.Threading.Tasks;
 namespace MetroDev.Boilerplate.Equipos.Dto {
 
     [AutoMapFrom(typeof(Equipo))]
-    public class EquipoListDto : EntityDto{
+    public class EquipoListDto : EntityDto {
         public string Nombre { get; set; }
 
-        public virtual Categoria Categoria { get; set; }
+        public CategoriaEnEquipoListDto Categoria { get; set; }
+    }
+
+    [AutoMapFrom(typeof(Categoria))]
+    public class CategoriaEnEquipoListDto : EntityDto {
+        public string Nombre { get; set; }
+
+        public int Numero { get; set; }
     }
 }

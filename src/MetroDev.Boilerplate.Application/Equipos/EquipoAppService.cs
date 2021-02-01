@@ -4,6 +4,7 @@ using Abp.Domain.Repositories;
 using Abp.Extensions;
 using Abp.Linq.Extensions;
 using MetroDev.Boilerplate.Equipos.Dto;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +22,7 @@ namespace MetroDev.Boilerplate.Equipos {
         public ListResultDto<EquipoListDto> GetEquipos(GetEquiposInput input) {
             var equipos = _equiposRepository
                 .GetAll()
+                .Include(e => e.Categoria)
                 .WhereIf(!input.Filtro.IsNullOrEmpty(),
                 e => e.Nombre.ToLower().Contains(input.Filtro.ToLower()))
                 .OrderBy(p => p.Nombre)

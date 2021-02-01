@@ -2131,201 +2131,12 @@ export interface IChangeUiThemeInput {
     theme: string;
 }
 
-export class Campeonato implements ICampeonato {
-    nombre: string;
-    equipos: Equipo[] | undefined;
-    isDeleted: boolean;
-    deleterUserId: number | undefined;
-    deletionTime: moment.Moment | undefined;
-    lastModificationTime: moment.Moment | undefined;
-    lastModifierUserId: number | undefined;
-    creationTime: moment.Moment;
-    creatorUserId: number | undefined;
-    id: number;
-
-    constructor(data?: ICampeonato) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.nombre = _data["nombre"];
-            if (Array.isArray(_data["equipos"])) {
-                this.equipos = [] as any;
-                for (let item of _data["equipos"])
-                    this.equipos.push(Equipo.fromJS(item));
-            }
-            this.isDeleted = _data["isDeleted"];
-            this.deleterUserId = _data["deleterUserId"];
-            this.deletionTime = _data["deletionTime"] ? moment(_data["deletionTime"].toString()) : <any>undefined;
-            this.lastModificationTime = _data["lastModificationTime"] ? moment(_data["lastModificationTime"].toString()) : <any>undefined;
-            this.lastModifierUserId = _data["lastModifierUserId"];
-            this.creationTime = _data["creationTime"] ? moment(_data["creationTime"].toString()) : <any>undefined;
-            this.creatorUserId = _data["creatorUserId"];
-            this.id = _data["id"];
-        }
-    }
-
-    static fromJS(data: any): Campeonato {
-        data = typeof data === 'object' ? data : {};
-        let result = new Campeonato();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["nombre"] = this.nombre;
-        if (Array.isArray(this.equipos)) {
-            data["equipos"] = [];
-            for (let item of this.equipos)
-                data["equipos"].push(item.toJSON());
-        }
-        data["isDeleted"] = this.isDeleted;
-        data["deleterUserId"] = this.deleterUserId;
-        data["deletionTime"] = this.deletionTime ? this.deletionTime.toISOString() : <any>undefined;
-        data["lastModificationTime"] = this.lastModificationTime ? this.lastModificationTime.toISOString() : <any>undefined;
-        data["lastModifierUserId"] = this.lastModifierUserId;
-        data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
-        data["creatorUserId"] = this.creatorUserId;
-        data["id"] = this.id;
-        return data; 
-    }
-
-    clone(): Campeonato {
-        const json = this.toJSON();
-        let result = new Campeonato();
-        result.init(json);
-        return result;
-    }
-}
-
-export interface ICampeonato {
-    nombre: string;
-    equipos: Equipo[] | undefined;
-    isDeleted: boolean;
-    deleterUserId: number | undefined;
-    deletionTime: moment.Moment | undefined;
-    lastModificationTime: moment.Moment | undefined;
-    lastModifierUserId: number | undefined;
-    creationTime: moment.Moment;
-    creatorUserId: number | undefined;
-    id: number;
-}
-
-export class Equipo implements IEquipo {
-    nombre: string;
-    categoria: Categoria;
-    campeonatos: Campeonato[] | undefined;
-    isDeleted: boolean;
-    deleterUserId: number | undefined;
-    deletionTime: moment.Moment | undefined;
-    lastModificationTime: moment.Moment | undefined;
-    lastModifierUserId: number | undefined;
-    creationTime: moment.Moment;
-    creatorUserId: number | undefined;
-    id: number;
-
-    constructor(data?: IEquipo) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-        if (!data) {
-            this.categoria = new Categoria();
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.nombre = _data["nombre"];
-            this.categoria = _data["categoria"] ? Categoria.fromJS(_data["categoria"]) : new Categoria();
-            if (Array.isArray(_data["campeonatos"])) {
-                this.campeonatos = [] as any;
-                for (let item of _data["campeonatos"])
-                    this.campeonatos.push(Campeonato.fromJS(item));
-            }
-            this.isDeleted = _data["isDeleted"];
-            this.deleterUserId = _data["deleterUserId"];
-            this.deletionTime = _data["deletionTime"] ? moment(_data["deletionTime"].toString()) : <any>undefined;
-            this.lastModificationTime = _data["lastModificationTime"] ? moment(_data["lastModificationTime"].toString()) : <any>undefined;
-            this.lastModifierUserId = _data["lastModifierUserId"];
-            this.creationTime = _data["creationTime"] ? moment(_data["creationTime"].toString()) : <any>undefined;
-            this.creatorUserId = _data["creatorUserId"];
-            this.id = _data["id"];
-        }
-    }
-
-    static fromJS(data: any): Equipo {
-        data = typeof data === 'object' ? data : {};
-        let result = new Equipo();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["nombre"] = this.nombre;
-        data["categoria"] = this.categoria ? this.categoria.toJSON() : <any>undefined;
-        if (Array.isArray(this.campeonatos)) {
-            data["campeonatos"] = [];
-            for (let item of this.campeonatos)
-                data["campeonatos"].push(item.toJSON());
-        }
-        data["isDeleted"] = this.isDeleted;
-        data["deleterUserId"] = this.deleterUserId;
-        data["deletionTime"] = this.deletionTime ? this.deletionTime.toISOString() : <any>undefined;
-        data["lastModificationTime"] = this.lastModificationTime ? this.lastModificationTime.toISOString() : <any>undefined;
-        data["lastModifierUserId"] = this.lastModifierUserId;
-        data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
-        data["creatorUserId"] = this.creatorUserId;
-        data["id"] = this.id;
-        return data; 
-    }
-
-    clone(): Equipo {
-        const json = this.toJSON();
-        let result = new Equipo();
-        result.init(json);
-        return result;
-    }
-}
-
-export interface IEquipo {
-    nombre: string;
-    categoria: Categoria;
-    campeonatos: Campeonato[] | undefined;
-    isDeleted: boolean;
-    deleterUserId: number | undefined;
-    deletionTime: moment.Moment | undefined;
-    lastModificationTime: moment.Moment | undefined;
-    lastModifierUserId: number | undefined;
-    creationTime: moment.Moment;
-    creatorUserId: number | undefined;
-    id: number;
-}
-
-export class Categoria implements ICategoria {
+export class CategoriaEnEquipoListDto implements ICategoriaEnEquipoListDto {
+    nombre: string | undefined;
     numero: number;
-    nombre: string;
-    equipos: Equipo[] | undefined;
-    isDeleted: boolean;
-    deleterUserId: number | undefined;
-    deletionTime: moment.Moment | undefined;
-    lastModificationTime: moment.Moment | undefined;
-    lastModifierUserId: number | undefined;
-    creationTime: moment.Moment;
-    creatorUserId: number | undefined;
     id: number;
 
-    constructor(data?: ICategoria) {
+    constructor(data?: ICategoriaEnEquipoListDto) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -2336,76 +2147,44 @@ export class Categoria implements ICategoria {
 
     init(_data?: any) {
         if (_data) {
+            this.nombre = _data["nombre"];
             this.numero = _data["numero"];
-            this.nombre = _data["nombre"];
-            if (Array.isArray(_data["equipos"])) {
-                this.equipos = [] as any;
-                for (let item of _data["equipos"])
-                    this.equipos.push(Equipo.fromJS(item));
-            }
-            this.isDeleted = _data["isDeleted"];
-            this.deleterUserId = _data["deleterUserId"];
-            this.deletionTime = _data["deletionTime"] ? moment(_data["deletionTime"].toString()) : <any>undefined;
-            this.lastModificationTime = _data["lastModificationTime"] ? moment(_data["lastModificationTime"].toString()) : <any>undefined;
-            this.lastModifierUserId = _data["lastModifierUserId"];
-            this.creationTime = _data["creationTime"] ? moment(_data["creationTime"].toString()) : <any>undefined;
-            this.creatorUserId = _data["creatorUserId"];
             this.id = _data["id"];
         }
     }
 
-    static fromJS(data: any): Categoria {
+    static fromJS(data: any): CategoriaEnEquipoListDto {
         data = typeof data === 'object' ? data : {};
-        let result = new Categoria();
+        let result = new CategoriaEnEquipoListDto();
         result.init(data);
         return result;
     }
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["numero"] = this.numero;
         data["nombre"] = this.nombre;
-        if (Array.isArray(this.equipos)) {
-            data["equipos"] = [];
-            for (let item of this.equipos)
-                data["equipos"].push(item.toJSON());
-        }
-        data["isDeleted"] = this.isDeleted;
-        data["deleterUserId"] = this.deleterUserId;
-        data["deletionTime"] = this.deletionTime ? this.deletionTime.toISOString() : <any>undefined;
-        data["lastModificationTime"] = this.lastModificationTime ? this.lastModificationTime.toISOString() : <any>undefined;
-        data["lastModifierUserId"] = this.lastModifierUserId;
-        data["creationTime"] = this.creationTime ? this.creationTime.toISOString() : <any>undefined;
-        data["creatorUserId"] = this.creatorUserId;
+        data["numero"] = this.numero;
         data["id"] = this.id;
         return data; 
     }
 
-    clone(): Categoria {
+    clone(): CategoriaEnEquipoListDto {
         const json = this.toJSON();
-        let result = new Categoria();
+        let result = new CategoriaEnEquipoListDto();
         result.init(json);
         return result;
     }
 }
 
-export interface ICategoria {
+export interface ICategoriaEnEquipoListDto {
+    nombre: string | undefined;
     numero: number;
-    nombre: string;
-    equipos: Equipo[] | undefined;
-    isDeleted: boolean;
-    deleterUserId: number | undefined;
-    deletionTime: moment.Moment | undefined;
-    lastModificationTime: moment.Moment | undefined;
-    lastModifierUserId: number | undefined;
-    creationTime: moment.Moment;
-    creatorUserId: number | undefined;
     id: number;
 }
 
 export class EquipoListDto implements IEquipoListDto {
     nombre: string | undefined;
-    categoria: Categoria;
+    categoria: CategoriaEnEquipoListDto;
     id: number;
 
     constructor(data?: IEquipoListDto) {
@@ -2420,7 +2199,7 @@ export class EquipoListDto implements IEquipoListDto {
     init(_data?: any) {
         if (_data) {
             this.nombre = _data["nombre"];
-            this.categoria = _data["categoria"] ? Categoria.fromJS(_data["categoria"]) : <any>undefined;
+            this.categoria = _data["categoria"] ? CategoriaEnEquipoListDto.fromJS(_data["categoria"]) : <any>undefined;
             this.id = _data["id"];
         }
     }
@@ -2450,7 +2229,7 @@ export class EquipoListDto implements IEquipoListDto {
 
 export interface IEquipoListDto {
     nombre: string | undefined;
-    categoria: Categoria;
+    categoria: CategoriaEnEquipoListDto;
     id: number;
 }
 
